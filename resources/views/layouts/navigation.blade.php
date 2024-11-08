@@ -21,14 +21,15 @@
                 </div>
             </div>
 
-            <!-- Settings Dropdown -->
-            <div class="hidden sm:flex sm:items-center sm:ms-6">
-                <form action="{{ route('home.index') }}" method="GET" class="mt-4">
-                    <div class="form-control">
-                        <input type="text" name="search" placeholder="Buscar notícias..." value="{{ request('search') }}" class="input input-bordered w-24 md:w-auto" />
-                    </div>
-                </form>
-            </div>
+            @if(request()->routeIs('home.index'))
+                <div class="hidden sm:flex sm:items-center sm:ms-6">
+                    <form action="{{ route('home.index') }}" method="GET" class="mt-4">
+                        <div class="form-control">
+                            <input type="text" name="search" placeholder="Buscar notícias..." value="{{ request('search') }}" class="input input-bordered input-sm w-24 md:w-auto" />
+                        </div>
+                    </form>
+                </div>
+            @endif
 
             <!-- Hamburger -->
             <div class="-me-2 flex items-center sm:hidden">

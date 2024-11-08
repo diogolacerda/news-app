@@ -3,7 +3,7 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="grid gap-6 lg:grid-cols-2 lg:gap-8">
                 @foreach ($news as $item)
-                <x-card :title="$item->title" :category="$item->category->name" >
+                <x-card :title="$item->title" :category="$item->category" >
                         <p>{{ Str::limit($item->content, 100) }}</p>
 
                         <x-slot name="footer">

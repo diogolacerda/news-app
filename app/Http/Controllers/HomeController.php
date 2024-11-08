@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 
 use App\Models\News;
-
+use App\Models\Category;
 
 class HomeController extends Controller
 {
@@ -27,15 +27,17 @@ class HomeController extends Controller
             $newsQuery->where('title', 'like', "%$search%");
         }
 
-        $news  = Cache::remember($cache_key, now()->addMinutes(60), function () use ($newsQuery) {
-            return $newsQuery->with('category')
-                ->latest()
-                ->paginate(10);
-        });
+        // $news  = Cache::remember($cache_key, 60, function () use ($newsQuery) {
+        //     return $newsQuery->with('category')
+        //         ->latest()
+        //         ->paginate(10);
+        // });
+        $news = $newsQuery->with('category')->latest()->paginate(10);
+        $categories = Category::all();
 
         $news->appends(['category_id' => $categoryId, 'search' => $search]);
 
-        return view('home.index', compact('news'));
+        return view('home.index', compact('news', 'categories', 'search', 'categoryId'));
     }
 
     public function show(News $news)
