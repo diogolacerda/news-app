@@ -4,7 +4,7 @@ namespace App\Services;
 
 use App\Repositories\CategoryRepository;
 
-class CategoryService implements BaseServiceInterface
+class CategoryService implements CategoryServiceInterface
 {
     protected $categoryRepository;
 

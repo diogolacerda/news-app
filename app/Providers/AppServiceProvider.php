@@ -3,9 +3,9 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use App\Repositories\BaseRepositoryInterface;
+use App\Repositories\CategoryRepositoryInterface;
 use App\Repositories\CategoryRepository;
-use App\Services\BaseServiceInterface;
+use App\Services\CategoryServiceInterface;
 use App\Services\CategoryService;
 
 class AppServiceProvider extends ServiceProvider
@@ -15,8 +15,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        $this->app->bind(BaseRepositoryInterface::class, CategoryRepository::class);
-        $this->app->bind(BaseServiceInterface::class, CategoryService::class);
+        $this->app->bind(CategoryRepositoryInterface::class, CategoryRepository::class);
+        $this->app->bind(CategoryServiceInterface::class, CategoryService::class);
     }
 
     /**

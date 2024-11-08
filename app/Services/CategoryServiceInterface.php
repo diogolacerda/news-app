@@ -2,7 +2,7 @@
 
 namespace App\Services;
 
-interface BaseServiceInterface
+interface CategoryServiceInterface
 {
     public function getAll();
     public function find($id);
