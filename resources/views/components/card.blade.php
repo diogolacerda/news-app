@@ -1,4 +1,4 @@
-{{-- <div class="card bg-base-100 w-96 shadow-xl">
+<div class="card bg-base-100 w-96 shadow-xl">
     <div class="card-body">
         @isset($title)
         <h2 class="card-title">
@@ -8,7 +8,7 @@
         <p>{{ $slot }}</p>
         <div class="card-actions justify-end">
             @isset($category)
-                <div class="badge badge-outline">{{ $category }}</div>
+                <div class="">{{ $category }}</div>
             @endisset
         </div>
         @isset($footer)
@@ -17,10 +17,10 @@
             </div>
         @endisset
     </div>
-</div> --}}
+</div>
 
 
-<div class="card card-compact bg-base-100 w-96 shadow-xl">
+{{-- <div class="card card-compact bg-base-100 w-96 shadow-xl">
 
     <div class="card-body">
       <h2 class="card-title">Shoes!</h2>
@@ -29,6 +29,6 @@
         <button class="btn btn-primary">Buy Now</button>
       </div>
     </div>
-  </div>
+  </div> --}}
 
 
