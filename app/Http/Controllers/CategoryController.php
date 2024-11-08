@@ -6,25 +6,21 @@ use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreCategoryRequest;
 use App\Http\Requests\UpdateCategoryRequest;
-
+use App\Services\BaseServiceInterface;
 
 class CategoryController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    protected $categoryService;
+
+    public function __construct(BaseServiceInterface $categoryService)
+    {
+        $this->categoryService = $categoryService;
+    }
+
     public function index(Request $request)
     {
         $search = $request->input('search');
-
-        $categories = Category::when($search, function ($query, $search) {
-            return $query->where('name', 'like', '%' . $search . '%');
-        })->paginate(10);
-
-
-        // Mantem os parâmetros de busca ao navegar pelas paginas
-        $categories->appends(['search' => $search]);
-
+        $categories = $this->categoryService->getAll($search);
         return view('categories.index', compact('categories', 'search'));
     }
 
@@ -41,16 +37,16 @@ class CategoryController extends Controller
      */
     public function store(StoreCategoryRequest $request)
     {
-        Category::create($request->validated());
-
+        $this->categoryService->store($request->validated());
         return redirect()->route('categories.index')->with('success', 'Categoria criada com sucesso.');
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Category $category)
+    public function edit($id)
     {
+        $category = $this->categoryService->find($id);
         return view('categories.edit', compact('category'));
     }
 
@@ -59,18 +55,16 @@ class CategoryController extends Controller
      */
     public function update(UpdateCategoryRequest $request, Category $category)
     {
-        $category->update($request->validated());
-
+        $this->categoryService->update($category->id, $request->validated());
         return redirect()->route('categories.index')->with('success', 'Categoria atualizada com sucesso.');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Category $category)
+    public function destroy($id)
     {
-        $category->delete();
-
+        $this->categoryService->delete($id);
         return redirect()->route('categories.index')->with('success', 'Categoria excluída com sucesso.');
     }
 
