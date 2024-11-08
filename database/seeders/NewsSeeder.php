@@ -5,6 +5,8 @@ namespace Database\Seeders;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\News;
+use App\Models\Category;
+
 
 class NewsSeeder extends Seeder
 {
@@ -13,6 +15,11 @@ class NewsSeeder extends Seeder
      */
     public function run(): void
     {
-        News::factory()->count(50)->create();
+        $categories = Category::factory()->count(5)->create();
+
+        News::factory()->count(50)->create()->each(function ($news) use ($categories) {
+            $news->category()->associate($categories->random());
+            $news->save();
+        });
     }
 }
