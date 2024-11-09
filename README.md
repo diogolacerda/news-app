@@ -59,7 +59,7 @@ Para configurar o ambiente de desenvolvimento, siga as instruções abaixo. Util
 5. **Rode os Testes**
     ```bash
     ./vendor/bin/sail test
-**Para finalizar o ambiente**
+6. **Para finalizar o ambiente**
     ```bash
     ./vendor/bin/sail down
 
