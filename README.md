@@ -63,3 +63,31 @@ Para configurar o ambiente de desenvolvimento, siga as instruções abaixo. Util
     ```bash
     ./vendor/bin/sail down
 
+## Funcionalidades
+
+### Home
+
+A página inicial do sistema exibe uma lista de notícias com as seguintes características:
+
+- **Paginação**: As notícias são exibidas de forma paginada, com 10 itens por página.
+- **Cache**: A lista de notícias é armazenada em cache por 1 hora para melhorar a performance.
+- **Campo de Busca**: No cabeçalho, há um campo de busca que permite filtrar as notícias pelo título.
+- **Filtro por Categoria**: É possível filtrar as notícias por categoria clicando nos badges de cada categoria.
+- **Conteúdo Resumido**: O conteúdo da notícia está limitado a 100 caracteres para exibição na lista.
+- **Acesso à Notícia Completa**: Ao clicar em "Acessar", o usuário é direcionado para a página com o conteúdo completo da notícia.
+
+### CRUD de Categorias
+
+O sistema permite a gestão das categorias com as seguintes funcionalidades:
+
+- **Listagem Paginada**: As categorias são listadas com paginação de 10 itens por página.
+- **Busca por Nome**: É possível buscar uma categoria específica utilizando o nome.
+- **Atualização do Cache**: Quando uma categoria é criada, editada ou excluída, o cache da listagem de notícias na home é automaticamente limpo para refletir as alterações.
+
+### CRUD de Notícias
+
+O sistema permite a gestão das notícias com as seguintes funcionalidades:
+
+- **Listagem Paginada**: As notícias são exibidas com paginação de 10 itens por página.
+- **Busca por Nome ou Categoria**: É possível buscar uma notícia específica pelo título ou filtrar por categoria.
+- **Atualização do Cache**: Quando uma notícia é criada, editada ou excluída, o cache da listagem de notícias na home é automaticamente limpo para refletir as alterações.
