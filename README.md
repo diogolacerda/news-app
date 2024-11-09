@@ -32,30 +32,33 @@ Para configurar o ambiente de desenvolvimento, siga as instruções abaixo. Util
         -w /var/www/html \
         laravelsail/php83-composer:latest \
         composer install --ignore-platform-reqs
-
     
 3. **Configure do Ambiente**
 
     - Copie o arquivo `.env.example` para `.env`:
         ```bash
         cp .env.example .env
-
     - Suba o ambiente de desenvolvimento:
         ```bash
-        ./vendor/bin/sail up -d
-
+        ./vendor/bin/sail up -d 
     - Gere a chave da aplicação:
         ```bash
-        ./vendor/bin/sail artisan key:generate
-
+        ./vendor/bin/sail artisan key:generate 
+    - Instale as dependências do Node.js
+        ```bash
+        ./vendor/bin/sail npm install 
+    - Compile os assets
+        ```bash
+        ./vendor/bin/sail npm run build 
     - Migre o banco de dados:
         ```bash
-        ./vendor/bin/sail artisan migrate
-
+        ./vendor/bin/sail artisan migrate 
 4. **Execute o Seed**
-    ```bash
-    ./vendor/bin/sail db:seed
-
+    ```bash ./vendor/bin/sail db:seed
 5. **Rode os Testes**
     ```bash
     ./vendor/bin/sail test
+6. **Inicie o ambiente**
+    ```bash
+    ./vendor/bin/sail up
+
