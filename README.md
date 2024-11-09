@@ -2,6 +2,8 @@
 
 Este projeto foi desenvolvido como parte de um teste técnico para a Investidor10. A aplicação permite o cadastro e a visualização de notícias e categorias. 
 
+### [Demo Online](http://news-app.mooo.com:8001/)
+
 ## Pré-requisitos
 
 Antes de iniciar, certifique-se de que você possui os seguintes softwares instalados em sua máquina:
