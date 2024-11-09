@@ -3,38 +3,36 @@
 namespace App\Http\Controllers;
 
 use App\Models\News;
-use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreNewsRequest;
 use App\Http\Requests\UpdateNewsRequest;
 use Illuminate\Support\Facades\Cache;
+use App\Services\NewsServiceInterface;
+use App\Services\CategoryServiceInterface;
 
 class NewsController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    protected $newsService;
+    protected $categoryService;
+
+    public function __construct(
+        NewsServiceInterface $newsService,
+        CategoryServiceInterface $categoryService
+    )
+    {
+        $this->newsService = $newsService;
+        $this->categoryService = $categoryService;
+    }
+
     public function index(Request $request)
     {
+        $categories = $this->categoryService->getAll();
+
         $search = $request->input('search');
         $categoryId = $request->input('category_id');
 
-        $newsQuery = News::query();
-
-        if ($categoryId) {
-            $newsQuery->where('category_id', $categoryId);
-        }
-
-        if ($search) {
-            $newsQuery->where('title', 'like', '%' . $search . '%');
-        }
-
-        $news = $newsQuery->with('category')->paginate(10);
-
-        // Mantem os parâmetros de busca ao navegar pelas paginas
+        $news = $this->newsService->getAll($search, $categoryId);
         $news->appends(['category_id' => $categoryId, 'search' => $search]);
-
-        $categories = Category::all();
 
         return view('news.index', compact('news', 'categories', 'search', 'categoryId'));
     }
@@ -44,7 +42,7 @@ class NewsController extends Controller
      */
     public function create()
     {
-        $categories = Category::all();
+        $categories = $this->categoryService->getAll();
         return view('news.create', compact('categories'));
     }
 
@@ -53,14 +51,11 @@ class NewsController extends Controller
      */
     public function store(StoreNewsRequest $request)
     {
-        $data = $request->validated();
-
-        News::create($data);
+        $this->newsService->store($request->validated());
 
         Cache::forget(config('cache.keys.news'));
 
-        return redirect()->route('news.index')
-                         ->with('success', 'Notícia criada com sucesso.');
+        return redirect()->route('news.index')->with('success', 'Notícia criada com sucesso');
     }
 
 
@@ -69,7 +64,7 @@ class NewsController extends Controller
      */
     public function edit(News $news)
     {
-        $categories = Category::all();
+        $categories = $this->categoryService->getAll();
         return view('news.edit', compact('news', 'categories'));
     }
 
@@ -78,7 +73,7 @@ class NewsController extends Controller
      */
     public function update(UpdateNewsRequest $request, News $news)
     {
-        $news->update($request->validated());
+        $this->newsService->update($news->id, $request->validated());
 
         Cache::forget(config('cache.keys.news'));
 
@@ -89,9 +84,9 @@ class NewsController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(News $news)
+    public function destroy($id)
     {
-        $news->delete();
+        $this->newsService->delete($id);
 
         Cache::forget(config('cache.keys.news'));
 

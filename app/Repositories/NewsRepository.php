@@ -2,15 +2,15 @@
 
 namespace App\Repositories;
 
-use App\Models\Category;
+use App\Models\News;
 
-class CategoryRepository implements CategoryRepositoryInterface
+class NewsRepository implements NewsRepositoryInterface
 {
-    protected Category $model;
+    protected News $model;
 
-    public function __construct(Category $category)
+    public function __construct(News $news)
     {
-        $this->model = $category;
+        $this->model = $news;
     }
     public function all()
     {
@@ -40,10 +40,14 @@ class CategoryRepository implements CategoryRepositoryInterface
         $category->delete();
     }
 
-    public function search($search)
+    public function search($search, $categoryId)
     {
         return $this->model::when($search, function ($query, $search) {
-            return $query->where('name', 'like', '%' . $search . '%');
-        })->paginate(10);
+            return $query->where('title', 'like', '%' . $search . '%');
+        })
+        ->when($categoryId, function ($query, $categoryId) {
+            return $query->where('category_id', $categoryId);
+        })
+        ->paginate(10);
     }
 }

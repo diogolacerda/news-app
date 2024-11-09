@@ -2,20 +2,20 @@
 
 namespace App\Services;
 
-use App\Repositories\CategoryRepository;
+use App\Repositories\NewsRepository;
 
-class CategoryService implements CategoryServiceInterface
+class NewsService implements NewsServiceInterface
 {
     protected $service;
 
-    public function __construct(CategoryRepository $categoryRepository)
+    public function __construct(NewsRepository $newsRepository)
     {
-        $this->service = $categoryRepository;
+        $this->service = $newsRepository;
     }
 
-    public function getAll($search = null)
+    public function getAll($search = null, $categoryId = null)
     {
-        return $this->service->search($search);
+        return $this->service->search($search, $categoryId);
     }
 
     public function find($id)

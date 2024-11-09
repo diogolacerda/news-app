@@ -21,6 +21,7 @@ class CategoryController extends Controller
     {
         $search = $request->input('search');
         $categories = $this->categoryService->getAll($search);
+        $categories->appends(['search' => $search]);
         return view('categories.index', compact('categories', 'search'));
     }
 
