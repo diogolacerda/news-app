@@ -8,6 +8,8 @@ use Tests\TestCase;
 
 use App\Models\Category;
 use App\Models\News;
+use Illuminate\Support\Facades\Cache;
+
 
 class HomeControllerTest extends TestCase
 {

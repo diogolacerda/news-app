@@ -15,6 +15,13 @@ use App\Services\NewsService;
 use App\Repositories\NewsRepositoryInterface;
 use App\Repositories\NewsRepository;
 
+use App\Services\HomeServiceInterface;
+use App\Services\HomeService;
+use App\Repositories\HomeRepositoryInterface;
+use App\Repositories\HomeRepository;
+
+
+
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -27,6 +34,9 @@ class AppServiceProvider extends ServiceProvider
 
         $this->app->bind(NewsRepositoryInterface::class, NewsRepository::class);
         $this->app->bind(NewsServiceInterface::class, NewsService::class);
+
+        $this->app->bind(HomeRepositoryInterface::class, HomeRepository::class);
+        $this->app->bind(HomeServiceInterface::class, HomeService::class);
     }
 
     /**

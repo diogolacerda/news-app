@@ -6,7 +6,6 @@ use App\Models\News;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreNewsRequest;
 use App\Http\Requests\UpdateNewsRequest;
-use Illuminate\Support\Facades\Cache;
 use App\Services\NewsServiceInterface;
 use App\Services\CategoryServiceInterface;
 
@@ -53,8 +52,6 @@ class NewsController extends Controller
     {
         $this->newsService->store($request->validated());
 
-        Cache::forget(config('cache.keys.news'));
-
         return redirect()->route('news.index')->with('success', 'Notícia criada com sucesso');
     }
 
@@ -75,8 +72,6 @@ class NewsController extends Controller
     {
         $this->newsService->update($news->id, $request->validated());
 
-        Cache::forget(config('cache.keys.news'));
-
         return redirect()->route('news.index')
                          ->with('success', 'Notícia atualizada com sucesso.');
     }
@@ -87,8 +82,6 @@ class NewsController extends Controller
     public function destroy($id)
     {
         $this->newsService->delete($id);
-
-        Cache::forget(config('cache.keys.news'));
 
         return redirect()->route('news.index')
                          ->with('success', 'Notícia deletada com sucesso.');
