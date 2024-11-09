@@ -55,7 +55,7 @@ Para configurar o ambiente de desenvolvimento, siga as instruções abaixo. Util
         ./vendor/bin/sail artisan migrate 
 4. **Execute o Seed**
     ```bash 
-    ./vendor/bin/sail db:seed
+    ./vendor/bin/sail artisan db:seed
 5. **Rode os Testes**
     ```bash
     ./vendor/bin/sail test
