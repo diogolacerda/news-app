@@ -2,7 +2,11 @@
 
 Este projeto foi desenvolvido como parte de um teste técnico para a Investidor10. A aplicação permite o cadastro e a visualização de notícias e categorias. 
 
-### [Demo Online](http://news-app.mooo.com:8001/)
+### Demo
+
+Você pode acessar uma versão demo da aplicação [neste link](http://news-app.mooo.com:8001/).
+
+> **Nota**: O domínio está hospedado em um servidor local e, por isso, não possui certificado de segurança. Desculpe pela ausência de HTTPS! 😳
 
 ## Pré-requisitos
 
