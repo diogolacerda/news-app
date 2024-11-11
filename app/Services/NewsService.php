@@ -3,6 +3,8 @@
 namespace App\Services;
 
 use App\Repositories\NewsRepository;
+use App\Models\News;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class NewsService implements NewsServiceInterface
 {
@@ -13,28 +15,28 @@ class NewsService implements NewsServiceInterface
         $this->repository = $newsRepository;
     }
 
-    public function getAll($search = null, $categoryId = null)
+    public function getAll($search = null, $categoryId = null): LengthAwarePaginator
     {
         return $this->repository->search($search, $categoryId);
     }
 
-    public function find($id)
+    public function find($id): News
     {
         return $this->repository->find($id);
     }
 
-    public function store(array $data)
+    public function store(array $data): News
     {
         return $this->repository->create($data);
     }
 
-    public function update($id, array $data)
+    public function update($id, array $data): News
     {
         return $this->repository->update($id, $data);
     }
 
-    public function delete($id)
+    public function delete($id): void
     {
-        return $this->repository->delete($id);
+        $this->repository->delete($id);
     }
 }
