@@ -2,11 +2,14 @@
 
 namespace App\Services;
 
+use App\Models\Category;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+
 interface CategoryServiceInterface
 {
-    public function getAll();
-    public function find($id);
-    public function store(array $data);
-    public function update($id, array $data);
-    public function delete($id);
+    public function getAll(): LengthAwarePaginator;
+    public function find($id): Category;
+    public function store(array $data): Category;
+    public function update($id, array $data): Category;
+    public function delete($id): void;
 }
