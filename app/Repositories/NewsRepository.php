@@ -29,15 +29,15 @@ class NewsRepository implements NewsRepositoryInterface
 
     public function update($id, array $data)
     {
-        $category = $this->find($id);
-        $category->update($data);
-        return $category;
+        $news = $this->find($id);
+        $news->update($data);
+        return $news;
     }
 
     public function delete($id)
     {
-        $category = $this->find($id);
-        $category->delete();
+        $news = $this->find($id);
+        $news->delete();
     }
 
     public function search($search, $categoryId)
